@@ -1,0 +1,74 @@
+{
+	"name": "Huella69",
+	"flow": [
+		{
+			"id": 1,
+			"module": "gateway:CustomWebHook",
+			"version": 1,
+			"parameters": { "hook": 3049755, "maxResults": 1 },
+			"mapper": {},
+			"metadata": {
+				"designer": { "x": 0, "y": 0 },
+				"interface": [
+					{ "name": "video", "type": "text", "label": "video" },
+					{ "name": "musica", "type": "text", "label": "musica" },
+					{ "name": "redes", "type": "text", "label": "redes" },
+					{ "name": "videollamadas", "type": "text", "label": "videollamadas" },
+					{ "name": "juegos", "type": "text", "label": "juegos" },
+					{ "name": "nube", "type": "text", "label": "nube" },
+					{ "name": "ia", "type": "text", "label": "ia" },
+					{ "name": "correos", "type": "text", "label": "correos" }
+				],
+				"parameters": [
+					{ "name": "hook", "type": "hook:gateway-webhook", "label": "Webhook", "required": true },
+					{ "name": "maxResults", "type": "number", "label": "Maximum number of results" }
+				]
+			}
+		},
+		{
+			"id": 2,
+			"module": "ai-local-agent:RunLocalAIAgent",
+			"version": 0,
+			"tools": [],
+			"parameters": { "makeConnectionId": 10844322 },
+			"mapper": {
+				"files": [],
+				"message": "Video: {{1.video}} h/dia\nMusica: {{1.musica}} h/dia\nRedes sociales: {{1.redes}} h/dia\nVideollamadas: {{1.videollamadas}} h/semana\nJuegos en linea: {{1.juegos}} h/dia\nNube: {{1.nube}} GB guardados\nIA: {{1.ia}} consultas/dia\nCorreos: {{1.correos}} al dia",
+				"threadId": "",
+				"outputType": "text",
+				"tokenLimit": "50",
+				"modelConfig": { "timeout": "", "recursionLimit": "300", "aiCompactionEnabled": true, "iterationsFromHistoryCount": "10" },
+				"defaultModel": "medium",
+				"systemPrompt": "Eres un analista de sustentabilidad digital para alumnos de Desarrollo Sustentable del TecNM.\nRecibiras el uso digital de una persona. Estima la energia que ese uso provoca en centros de datos y redes.\n\nReglas:\n- Usa este factor de emision: 0.444 kg CO2e por kWh (fuente: Aviso del Factor de Emision del Sistema Electrico Nacional 2024, CRE/SEMARNAT).\n- Para cada actividad indica el valor de kWh por hora (o por unidad) que supones. Si las fuentes varian mucho, usa un valor intermedio y dilo.\n- No presentes las estimaciones como datos exactos.\n\nResponde en texto plano (sin asteriscos, sin markdown), en espanol, con este formato:\n\nENERGIA ESTIMADA\nPor semana: [kWh]\nPor año: [kWh]\nEmisiones por año: [kg CO2e]\nEquivale a: [kilometros en auto o dias con un foco LED encendido]\n\nSUPOSICIONES\n[una linea por actividad con el valor usado]\n\n¿QUIEN PAGA ESTE COSTO?\n[3 lineas: por que es una externalidad, que recursos consume (energia, agua) y quien la absorbe]\n\n3 ACCIONES PARA REDUCIRLA\n1. [...]\n2. [...]\n3. [...]",
+				"promptCaching": "none",
+				"fallbackEnabled": false
+			},
+			"metadata": { "designer": { "x": 300, "y": 0 } }
+		},
+		{
+			"id": 3,
+			"module": "gateway:WebhookRespond",
+			"version": 1,
+			"parameters": {},
+			"mapper": {
+				"body": "{{2.response}}",
+				"status": "200",
+				"headers": [
+					{ "key": "Content-Type", "value": "text/plain; charset=utf-8" },
+					{ "key": "Access-Control-Allow-Origin", "value": "*" }
+				]
+			},
+			"metadata": { "designer": { "x": 600, "y": 0 } }
+		}
+	],
+	"metadata": {
+		"instant": true,
+		"version": 1,
+		"designer": { "orphans": [] },
+		"scenario": {
+			"dlq": false, "slots": null, "dataloss": false, "maxErrors": 3, "autoCommit": true,
+			"roundtrips": 1, "sequential": false, "confidential": false, "freshVariables": false,
+			"autoCommitTriggerLast": true
+		}
+	}
+}
