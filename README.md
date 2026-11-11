@@ -131,7 +131,9 @@ Un detalle: mis consultas son sobre todo con Claude Code, que trabaja con textos
 Música (0.06), redes (0.06), juegos (0.15), videollamadas (0.08), nube (0.001 kWh por GB por día) y correos (0.01 kWh) no las contrasté con fuentes. Con el valor corregido de la IA, mi consumo diario queda: video 32 %, redes 29 %, juegos 19 %, música 13 %, nube 5 %, IA 1 %, videollamadas y correos menos de 1 % cada una.
 
 ## Video de la prueba en vivo
-*(pendiente)*
+[Ver la prueba en YouTube](https://youtu.be/I06cgRJWcyE)
+
+El enlace también está en [`video/enlace.txt`](video/enlace.txt).
 
 ## 8. Preguntas de reflexión
 
